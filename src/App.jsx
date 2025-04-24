@@ -106,10 +106,10 @@ function App() {
         }
     }
 
-    // Custom tooltip component
-    const Tooltip = ({ children, content, backgroundColor = 'bg-blue-100' }) => {
+    // Custom tooltip component with darker background-friendly colors
+    const Tooltip = ({ children, content, backgroundColor = 'bg-blue-800' }) => {
         return (
-            <span className={`tooltip-container ${backgroundColor} underline decoration-dotted decoration-2`}>
+            <span className={`tooltip-container ${backgroundColor}  decoration-dotted decoration-2 text-white`}>
                 {children}
                 <span className="tooltip-content">{content}</span>
             </span>
@@ -117,117 +117,125 @@ function App() {
     };
 
     return (
-        <>  
-
-<h1 className="text-3xl font-bold text-center mb-6">Vision Corrector</h1>
+        <div className="container mx-auto p-8 max-w-6xl">  
+            <h1 className="text-4xl font-bold text-center mb-10 text-white">Vision Corrector</h1>
             
-            <div className="text-center mb-6">
+            <div className="text-center mb-10 text-gray-200">
                 {blurAmount > 0 ? 
-                    <div className="text-lg">
+                    <div className="text-xl">
                         <Tooltip 
                             content="Farsightedness (hyperopia) occurs when light focuses behind the retina instead of directly on it. This happens when the eyeball is too short or the cornea is too flat."
-                            backgroundColor="bg-amber-100"
+                            backgroundColor="bg-amber-800"
                         >
                             Farsighted
-                        </Tooltip>: You see near objects blurry
+                        </Tooltip> : You see near objects blurry
                     </div> : 
-                    <div className="text-lg">
+                    <div className="text-xl">
                         <Tooltip 
                             content="Nearsightedness (myopia) occurs when light focuses in front of the retina instead of directly on it. This happens when the eyeball is too long or the cornea is too curved."
-                            backgroundColor="bg-blue-100"
+                            backgroundColor="bg-blue-800"
                         >
                             Nearsighted
-                        </Tooltip>: You see far objects blurry
+                        </Tooltip> : You see far objects blurry
                     </div>
                 }
             </div>
             
-            <div className='w-[700px] mx-auto mb-8'>
-                <div className="mb-4">
-                    <label className="block mb-2">
-                        Your Prescription: {blurAmount} 
+            <div className='w-[700px] mx-auto mb-12 space-y-6'>
+                <div className="mb-6">
+                    <label className="block mb-3 text-gray-200 text-lg">
+                        Your Prescription: {blurAmount.toFixed(2)} &nbsp;
                         <Tooltip 
                             content="Diopters (D) are units that measure the optical power of a lens. Positive values indicate farsightedness, negative values indicate nearsightedness. The higher the absolute value, the stronger the correction needed."
-                            backgroundColor="bg-green-100"
+                            backgroundColor="bg-green-800"
                         >
                             Diopters
-                        </Tooltip> (Meaning your eye is {Math.abs(blurAmount)} power units {blurAmount < 0 ? "below" : "above"} normal.)
+                        </Tooltip>
                     </label>
+                    <p className="text-gray-400 mb-3">
+                        (Meaning your eye is {Math.abs(blurAmount).toFixed(2)} power units {blurAmount < 0 ? "below" : "above"} normal.)
+                    </p>
                     <input 
                         type="range" 
-                        min="-10" 
-                        max="10" 
+                        min="-6" 
+                        max="6" 
                         value={blurAmount} 
                         onChange={(e) => setBlurAmount(parseFloat(e.target.value))}
                         step="0.01"
-                        className="w-full"
+                        className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
                     />
                 </div>
                 
-                <div className="mb-4">
-                    <label className="block mb-2">
+                <div className="mb-6">
+                    <label className="block mb-3 text-gray-200 text-lg">
                         <Tooltip 
                             content="The correction applied by glasses or contact lenses to compensate for vision defects. Ideally, this should be equal and opposite to your prescription."
-                            backgroundColor="bg-purple-100"
+                            backgroundColor="bg-purple-800"
                         >
                             Actual Correction
-                        </Tooltip> {blurAmount2}
+                        </Tooltip> : {blurAmount2.toFixed(2)}
                     </label>
+                    <p className="text-gray-400 mb-3">
+                        (Perfect correction would be {(-blurAmount).toFixed(2)})
+                    </p>
                     <input 
                         type="range" 
-                        min="-10" 
-                        max="10" 
+                        min="-6" 
+                        max="6" 
                         value={blurAmount2} 
                         onChange={(e) => setBlurAmount2(parseFloat(e.target.value))}
                         step="0.01"
-                        className="w-full"
+                        className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
                     />
                 </div>
             </div>
-            <div className='grid grid-cols-3'>
+            <div className='grid grid-cols-3 gap-4'>
                 <div>
-                    <h2>What you currently see</h2>
+                    <h2 className="text-gray-200 mb-2">What you currently see</h2>
                     <canvas 
                         ref={canvasRefs[0]} 
-                        className="w-full"
+                        className="w-full rounded border border-gray-700"
                         style={{ display: 'block' }}
                     />
                 </div>
                 <div>
-                    <h2>What you see after correction</h2>
+                    <h2 className="text-gray-200 mb-2">What you see after correction</h2>
                     <canvas 
                         ref={canvasRefs[1]} 
-                        className="w-full"
+                        className="w-full rounded border border-gray-700"
                         style={{ display: 'block' }}
                     />
                 </div>
                 <div>
-                    <h2>Normal person vision</h2>
+                    <h2 className="text-gray-200 mb-2">Normal person vision</h2>
                     <canvas 
                         ref={canvasRefs[2]} 
-                        className="w-full"
+                        className="w-full rounded border border-gray-700"
                         style={{ display: 'block' }}
                     />
                 </div>
             </div>
             
-            <div className="text-center text-sm text-gray-600 mt-8">
-                <p>
+            <div className="text-center text-base text-gray-400 mt-12 max-w-2xl mx-auto leading-relaxed">
+                <p className="mb-4">
                     <Tooltip 
                         content="The process of focusing light on the retina. In refractive errors, light rays don't focus properly on the retina, causing blurred vision."
-                        backgroundColor="bg-yellow-100"
+                        backgroundColor="bg-yellow-800"
                     >
                         Refraction
-                    </Tooltip> is the bending of light as it passes from one medium to another. Vision problems occur when the 
+                    </Tooltip> is the bending of light as it passes from one medium to another. 
+                </p>
+                <p>
+                    Vision problems occur when the &nbsp;
                     <Tooltip 
                         content="The eye's focusing power depends on the cornea's curvature, lens flexibility, and eyeball length. When these are not in perfect proportion, refractive errors occur."
-                        backgroundColor="bg-pink-100"
+                        backgroundColor="bg-pink-800"
                     >
                         optical system
                     </Tooltip> of the eye cannot focus light correctly on the retina.
                 </p>
             </div>
-        </>
+        </div>
     )
 }
 

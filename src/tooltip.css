@@ -9,8 +9,8 @@
 .tooltip-content {
   visibility: hidden;
   width: 300px;
-  background-color: #333;
-  color: #fff;
+  background-color: #1a1a1a;
+  color: #f0f0f0;
   text-align: center;
   border-radius: 6px;
   padding: 10px;
@@ -23,8 +23,9 @@
   transition: opacity 0.3s;
   font-weight: normal;
   font-size: 0.9rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   pointer-events: none;
+  border: 1px solid #444;
 }
 
 .tooltip-content::after {
@@ -35,12 +36,49 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #333 transparent transparent transparent;
+  border-color: #1a1a1a transparent transparent transparent;
 }
 
 .tooltip-container:hover .tooltip-content {
   visibility: visible;
   opacity: 1;
+}
+
+/* Dark theme background colors for tooltip triggers */
+.bg-blue-800 {
+  background-color: rgba(30, 64, 175, 0.7);
+}
+
+.bg-green-800 {
+  background-color: rgba(22, 101, 52, 0.7);
+}
+
+.bg-red-800 {
+  background-color: rgba(153, 27, 27, 0.7);
+}
+
+.bg-yellow-800 {
+  background-color: rgba(133, 77, 14, 0.7);
+}
+
+.bg-purple-800 {
+  background-color: rgba(107, 33, 168, 0.7);
+}
+
+.bg-pink-800 {
+  background-color: rgba(157, 23, 77, 0.7);
+}
+
+.bg-indigo-800 {
+  background-color: rgba(55, 48, 163, 0.7);
+}
+
+.bg-amber-800 {
+  background-color: rgba(146, 64, 14, 0.7);
+}
+
+.bg-teal-800 {
+  background-color: rgba(17, 94, 89, 0.7);
 }
 
 /* Different background colors for tooltip triggers */
