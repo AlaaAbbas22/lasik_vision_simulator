@@ -153,7 +153,7 @@ function App() {
                         </Tooltip>
                     </label>
                     <p className="text-gray-400 mb-3">
-                        (Meaning your eye is {Math.abs(blurAmount).toFixed(2)} power units {blurAmount < 0 ? "below" : "above"} normal.)
+                        (Meaning your eye is {Math.abs(blurAmount).toFixed(2)} power units {blurAmount > 0 ? "below" : "above"} normal.)
                     </p>
                     <input 
                         type="range" 
@@ -173,17 +173,17 @@ function App() {
                             backgroundColor="bg-purple-800"
                         >
                             Actual Correction
-                        </Tooltip> : {blurAmount2.toFixed(2)}
+                        </Tooltip> : {-blurAmount2.toFixed(2)}
                     </label>
                     <p className="text-gray-400 mb-3">
-                        (Perfect correction would be {(-blurAmount).toFixed(2)})
+                        (Perfect correction would be {(blurAmount).toFixed(2)})
                     </p>
                     <input 
                         type="range" 
                         min="-6" 
                         max="6" 
-                        value={blurAmount2} 
-                        onChange={(e) => setBlurAmount2(parseFloat(e.target.value))}
+                        value={-blurAmount2} 
+                        onChange={(e) => setBlurAmount2(parseFloat(-e.target.value))}
                         step="0.01"
                         className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
                     />
